@@ -480,7 +480,7 @@
                         if ($lastSolvedCol.length > 0) {
                             $parent.insertAfter($lastSolvedCol);
                         } else {
-                            $grid.prepend($parent);
+                            $grid.append($parent);
                         }
                         $parent.addClass("solved-col");
                     });
@@ -557,7 +557,7 @@
                             if ($lastSolvedCol.length > 0) {
                                 $parent.insertAfter($lastSolvedCol);
                             } else {
-                                $grid.prepend($parent);
+                                $grid.append($parent);
                             }
                             $parent.addClass("solved-col");
                         });
