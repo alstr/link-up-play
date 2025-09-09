@@ -488,10 +488,10 @@
                     $grid.packery();
 
                     $("#theme-area span")
-                        .filter((i, el) => $(el).text() === theme)
+                        .filter((i, el) => $(el).text() === matchedTheme)
                         .remove();
                     $("#theme-area").append(
-                        `<span class="badge">${theme}</span>`
+                        `<span class="badge">${matchedTheme}</span>`
                     );
 
                     goalsScored++;
