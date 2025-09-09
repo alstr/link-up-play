@@ -59,7 +59,7 @@
                 width: 100%;
             }
             .card {
-                aspect-ratio: 2;
+                aspect-ratio: 3;
             }
             .card-body {
                 padding: 10px;
@@ -131,7 +131,7 @@
                     width: 100%;
                 }
                 .card {
-                    aspect-ratio: 1.2;
+                    aspect-ratio: 2;
                 }
                 .card-body {
                     padding: 5px;
@@ -140,17 +140,22 @@
                     font-size: 12px;
                 }
             }
+            @media (max-width: 767px) {
+                .card {
+                    aspect-ratio: 1;
+                }
+            }
         </style>
     </head>
     <body class="vh-100">
         <nav class="navbar navbar-expand-lg border-white-bottom">
-            <div class="container-fluid">
+            <div class="container">
                 <a class="navbar-brand fw-bold" href="/">Link-Up Play</a>
                 <div id="lives" class="d-flex gap-2 ms-auto"></div>
             </div>
         </nav>
         <div id="container"
-            class="container-fluid text-center d-flex flex-column align-items-center"
+            class="container text-center d-flex flex-column align-items-center"
         >
             <div
                 id="theme-area"
@@ -302,7 +307,7 @@
                     </div>
                 </div>
             </div>
-            <div id="buttons" class="d-flex align-items-center my-auto">
+            <div id="buttons" class="d-flex align-items-center my-auto position-relative z-3">
                 <button
                     type="button"
                     id="submit-btn"
