@@ -487,8 +487,11 @@
                     $grid.packery("reloadItems");
                     $grid.packery();
 
+                    $("#theme-area span")
+                        .filter((i, el) => $(el).text() === theme)
+                        .remove();
                     $("#theme-area").append(
-                        `<span class="badge">${matchedTheme}</span>`
+                        `<span class="badge">${theme}</span>`
                     );
 
                     goalsScored++;
@@ -553,23 +556,17 @@
                             $c.addClass("solved-card");
                             const $parent = $c.parent(".col");
                             $parent.addClass("solved-col");
-                            const $lastSolvedCol = $(".solved-col").last();
-                            if ($lastSolvedCol.length > 0) {
-                                $parent.insertAfter($lastSolvedCol);
-                            } else {
-                                $grid.append($parent);
-                            }
+                            $grid.append($parent);
+
                             $parent.addClass("solved-col");
                         });
 
-                        if (
-                            !$("#theme-area span:contains('" + theme + "')")
-                                .length
-                        ) {
-                            $("#theme-area").append(
-                                `<span class="badge">${theme}</span>`
-                            );
-                        }
+                        $("#theme-area span")
+                            .filter((i, el) => $(el).text() === theme)
+                            .remove();
+                        $("#theme-area").append(
+                            `<span class="badge">${theme}</span>`
+                        );
                     });
 
                 $grid.packery("reloadItems");
