@@ -27,6 +27,8 @@
                 font-family: "Open Sans Condensed";
                 background-image: url("bg.png");
                 background-size: 250px;
+                height: 100vh;
+                height: 100dvh;
             }
             .navbar {
                 border-bottom: 5px solid white;
@@ -51,8 +53,6 @@
             #buttons {
                 gap: calc(var(--bs-gutter-x));
             }
-
-
             .row {
                 --bs-gutter-x: 1rem;
                 --bs-gutter-y: 1rem;
@@ -61,15 +61,16 @@
             .card {
                 aspect-ratio: 3;
             }
+            .card-selected {
+                outline: 2px solid var(--bs-primary);
+                outline-offset: -2px;
+            }
             .card-body {
                 padding: 10px;
             }
             .card:not(.solved-card) {
                 cursor: pointer;
-                transition: ease-in 0.2s;
-            }
-            .border-primary {
-                border-width: 2px;
+                transition: linear 0.1s;
             }
             #theme-area span:nth-child(1),
             .solved-col:nth-child(1) .card,
@@ -147,14 +148,15 @@
             }
         </style>
     </head>
-    <body class="vh-100">
+    <body>
         <nav class="navbar navbar-expand-lg border-white-bottom">
             <div class="container">
                 <a class="navbar-brand fw-bold" href="/">Link-Up Play</a>
                 <div id="lives" class="d-flex gap-2 ms-auto"></div>
             </div>
         </nav>
-        <div id="container"
+        <div
+            id="container"
             class="container text-center d-flex flex-column align-items-center"
         >
             <div
@@ -307,7 +309,10 @@
                     </div>
                 </div>
             </div>
-            <div id="buttons" class="d-flex align-items-center my-auto position-relative z-3">
+            <div
+                id="buttons"
+                class="d-flex align-items-center my-auto position-relative z-3"
+            >
                 <button
                     type="button"
                     id="submit-btn"
@@ -425,7 +430,7 @@
 
             // Card selection
             $(document).on("click", ".card:not(.solved-card)", function () {
-                $(this).toggleClass("card-selected border-primary shadow");
+                $(this).toggleClass("card-selected shadow");
                 $("#submit-btn").prop(
                     "disabled",
                     $(".card-selected").length !== 4
@@ -469,7 +474,7 @@
                         const $card = $(this);
                         $card
                             .addClass("solved-card")
-                            .removeClass("card-selected border-primary shadow");
+                            .removeClass("card-selected shadow");
                         const $parent = $card.parent(".col");
                         const $lastSolvedCol = $(".solved-col").last();
                         if ($lastSolvedCol.length > 0) {
@@ -514,9 +519,7 @@
                         );
                         completePuzzle();
                         $("#submit-btn, #shuffle-btn").prop("disabled", true);
-                        $(".card-selected").removeClass(
-                            "card-selected border-primary shadow"
-                        );
+                        $(".card-selected").removeClass("card-selected shadow");
                     }
                 }
             });
