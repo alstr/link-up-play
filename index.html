@@ -25,10 +25,11 @@
             }
             body {
                 font-family: "Open Sans Condensed";
+                background-image: url("bg.png");
+                background-size: 250px;
             }
-            h1 {
-                font-size: 24px;
-                font-weight: bold;
+            .navbar {
+                border-bottom: 5px solid white;
             }
             #lives {
                 height: 24px;
@@ -39,29 +40,23 @@
             }
             #theme-area {
                 height: 100px;
+                margin-top: 50px;
             }
             #theme-area > .badge {
                 width: 200px;
             }
-            .container,
+            #container {
+                height: calc(100% - 61px);
+            }
             #buttons {
                 gap: calc(var(--bs-gutter-x));
             }
-            #buttons {
-                margin-bottom: auto;
-            }
-            #grid {
-                margin-top: auto;
-                position: relative;
-                top: -100px;
-            }
+
+
             .row {
                 --bs-gutter-x: 1rem;
                 --bs-gutter-y: 1rem;
                 width: 100%;
-            }
-            .col {
-                transition: ease-in 0.2s;
             }
             .card {
                 aspect-ratio: 2;
@@ -136,7 +131,7 @@
                     width: 100%;
                 }
                 .card {
-                    aspect-ratio: 1;
+                    aspect-ratio: 1.2;
                 }
                 .card-body {
                     padding: 5px;
@@ -147,18 +142,19 @@
             }
         </style>
     </head>
-    <body>
-        <div
-            class="container text-center d-flex flex-column align-items-center vh-100"
-        >
-            <div class="d-flex mt-5 w-100 align-items-center">
-                <h1 class="me-auto mb-0">Link-Up Play</h1>
-                <div id="lives" class="d-flex gap-2"></div>
+    <body class="vh-100">
+        <nav class="navbar navbar-expand-lg border-white-bottom">
+            <div class="container-fluid">
+                <a class="navbar-brand fw-bold" href="/">Link-Up Play</a>
+                <div id="lives" class="d-flex gap-2 ms-auto"></div>
             </div>
-
+        </nav>
+        <div id="container"
+            class="container-fluid text-center d-flex flex-column align-items-center"
+        >
             <div
                 id="theme-area"
-                class="d-flex flex-column align-items-center gap-1"
+                class="d-flex flex-column align-items-center gap-1 mb-auto"
             ></div>
             <div id="grid" class="row row-cols-4">
                 <div class="col">
@@ -166,7 +162,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -175,7 +171,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -184,7 +180,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -193,7 +189,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -202,7 +198,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -211,7 +207,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -220,7 +216,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -229,7 +225,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -238,7 +234,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -247,7 +243,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -256,7 +252,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -265,7 +261,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -274,7 +270,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -283,7 +279,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -292,7 +288,7 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
@@ -301,12 +297,12 @@
                         <div
                             class="card-body d-flex justify-content-center flex-column"
                         >
-                            <h5 class="card-title my-3"></h5>
+                            <h5 class="card-title mb-0 fw-bold"></h5>
                         </div>
                     </div>
                 </div>
             </div>
-            <div id="buttons" class="d-flex align-items-center">
+            <div id="buttons" class="d-flex align-items-center my-auto">
                 <button
                     type="button"
                     id="submit-btn"
@@ -396,7 +392,7 @@
             const lifeSvg = `
                 <svg width="342px" height="342px" viewBox="0 0 342 342" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                        <circle id="Oval" stroke="#000000" stroke-width="25" cx="171" cy="171" r="158"></circle>
+                        <circle id="Oval" stroke="#000000" fill="#ffffff" stroke-width="25" cx="171" cy="171" r="158"></circle>
                         <g id="Mask" transform="translate(13.000000, 13.000000)" fill="#000000" fill-rule="nonzero" stroke="#000000" stroke-width="10">
                             <path d="M158.295064,105.207025 L120.756151,120.756151 L105.207025,158.295064 L120.756151,195.833976 L158.295064,211.383103 L195.833976,195.833976 L211.383103,158.295064 L195.833976,120.756151 L158.295064,105.207025 Z" id="Polygon" transform="translate(158.295064, 158.295064) rotate(22.250000) translate(-158.295064, -158.295064) "></path>
                             <path d="M302.850587,207.401146 C308.223503,191.643327 311,175.015435 311,158 C311,141.239533 308.306135,124.854465 303.089508,109.305265 L295.765337,109.337222 L267.159933,138.193351 L267.337222,178.82479 L296.193351,207.430194 L302.850587,207.401146 Z M207.283994,302.890477 L207.252905,295.765337 L178.396776,267.159933 L137.765337,267.337222 L109.159933,296.193351 L109.189854,303.050733 C124.773229,308.292743 141.197941,311 158,311 C174.973154,311 191.560768,308.237291 207.283994,302.890477 Z M207.398567,13.1485336 C191.641508,7.77619255 175.014503,5 158,5 C141.238601,5 124.85265,7.69416503 109.302693,12.9113603 L109.337222,20.8247902 L138.193351,49.430194 L178.82479,49.2529047 L207.430194,20.3967762 L207.398567,13.1485336 Z M13.110397,207.286565 L20.8247902,207.252905 L49.430194,178.396776 L49.2529047,137.765337 L20.396776,109.159933 L12.9483997,109.192432 C7.70695746,124.775046 5,141.198872 5,158 C5,174.974083 7.76301193,191.562581 13.110397,207.286565 Z" id="Combined-Shape"></path>
