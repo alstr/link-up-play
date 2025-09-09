@@ -480,7 +480,7 @@
                         if ($lastSolvedCol.length > 0) {
                             $parent.insertAfter($lastSolvedCol);
                         } else {
-                            $grid.append($parent);
+                            $grid.prepend($parent);
                         }
                         $parent.addClass("solved-col");
                     });
@@ -555,6 +555,12 @@
                             );
                             $c.addClass("solved-card");
                             const $parent = $c.parent(".col");
+                            const $lastSolvedCol = $(".solved-col").last();
+                            if ($lastSolvedCol.length > 0) {
+                                $parent.insertAfter($lastSolvedCol);
+                            } else {
+                                $grid.prepend($parent);
+                            }
                             $parent.addClass("solved-col");
                             $grid.append($parent);
 
