@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Link-Up Play</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+            crossorigin="anonymous"
+        />
+        <style>
+            @font-face {
+                font-family: "Open Sans Condensed";
+                src: url("OpenSans_Condensed-Regular.ttf") format("truetype");
+                font-weight: normal;
+                font-style: normal;
+            }
+            @font-face {
+                font-family: "Open Sans Condensed";
+                src: url("OpenSans_Condensed-Bold.ttf") format("truetype");
+                font-weight: bold;
+                font-style: normal;
+            }
+            body {
+                font-family: "Open Sans Condensed";
+            }
+            h1 {
+                font-size: 24px;
+                font-weight: bold;
+            }
+            #lives {
+                height: 24px;
+            }
+            #lives > svg {
+                width: 24px;
+                height: 24px;
+            }
+            #theme-area {
+                height: 100px;
+            }
+            #theme-area > .badge {
+                width: 200px;
+            }
+            .container,
+            #buttons {
+                gap: calc(var(--bs-gutter-x));
+            }
+            #buttons {
+                margin-bottom: auto;
+            }
+            #grid {
+                margin-top: auto;
+                position: relative;
+                top: -100px;
+            }
+            .row {
+                --bs-gutter-x: 1rem;
+                --bs-gutter-y: 1rem;
+                width: 100%;
+            }
+            .col {
+                transition: ease-in 0.2s;
+            }
+            .card {
+                aspect-ratio: 2;
+            }
+            .card-body {
+                padding: 10px;
+            }
+            .card:not(.solved-card) {
+                cursor: pointer;
+                transition: ease-in 0.2s;
+            }
+            .border-primary {
+                border-width: 2px;
+            }
+            #theme-area span:nth-child(1),
+            .solved-col:nth-child(1) .card,
+            .solved-col:nth-child(2) .card,
+            .solved-col:nth-child(3) .card,
+            .solved-col:nth-child(4) .card {
+                background-color: var(--bs-success-bg-subtle);
+                color: var(--bs-success-text-emphasis);
+            }
+            #theme-area span:nth-child(2),
+            .solved-col:nth-child(5) .card,
+            .solved-col:nth-child(6) .card,
+            .solved-col:nth-child(7) .card,
+            .solved-col:nth-child(8) .card {
+                background-color: var(--bs-primary-bg-subtle);
+                color: var(--bs-primary-text-emphasis);
+            }
+            #theme-area span:nth-child(3),
+            .solved-col:nth-child(9) .card,
+            .solved-col:nth-child(10) .card,
+            .solved-col:nth-child(11) .card,
+            .solved-col:nth-child(12) .card {
+                background-color: var(--bs-danger-bg-subtle);
+                color: var(--bs-danger-text-emphasis);
+            }
+            #theme-area span:nth-child(4),
+            .solved-col:nth-child(13) .card,
+            .solved-col:nth-child(14) .card,
+            .solved-col:nth-child(15) .card,
+            .solved-col:nth-child(16) .card {
+                background-color: var(--bs-warning-bg-subtle);
+                color: var(--bs-warning-text-emphasis);
+            }
+            @keyframes shake {
+                0% {
+                    transform: translateX(0);
+                }
+                25% {
+                    transform: translateX(-5px);
+                }
+                50% {
+                    transform: translateX(5px);
+                }
+                75% {
+                    transform: translateX(-5px);
+                }
+                100% {
+                    transform: translateX(0);
+                }
+            }
+            .shake {
+                animation: shake 0.3s;
+            }
+
+            @media (max-width: 991px) {
+                .row {
+                    --bs-gutter-x: 0.5rem;
+                    --bs-gutter-y: 0.5rem;
+                    width: 100%;
+                }
+                .card {
+                    aspect-ratio: 1;
+                }
+                .card-body {
+                    padding: 5px;
+                }
+                .card-title {
+                    font-size: 12px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div
+            class="container text-center d-flex flex-column align-items-center vh-100"
+        >
+            <div class="d-flex mt-5 w-100 align-items-center">
+                <h1 class="me-auto mb-0">Link-Up Play</h1>
+                <div id="lives" class="d-flex gap-2"></div>
+            </div>
+
+            <div
+                id="theme-area"
+                class="d-flex flex-column align-items-center gap-1"
+            ></div>
+            <div id="grid" class="row row-cols-4">
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card">
+                        <div
+                            class="card-body d-flex justify-content-center flex-column"
+                        >
+                            <h5 class="card-title my-3"></h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="buttons" class="d-flex align-items-center">
+                <button
+                    type="button"
+                    id="submit-btn"
+                    class="btn btn-primary btn-lg"
+                    disabled="disabled"
+                >
+                    Submit
+                </button>
+                <button
+                    type="shuffle"
+                    id="shuffle-btn"
+                    class="btn btn-secondary btn-lg"
+                >
+                    Shuffle
+                </button>
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        <script src="https://unpkg.com/packery@3/dist/packery.pkgd.min.js"></script>
+        <script>
+            $("#grid").packery({
+                // options
+                itemSelector: ".col",
+            });
+
+            const puzzle = {
+                connections: [
+                    {
+                        connection: {
+                            words: [
+                                "Ryan Giggs",
+                                "Andy Hessenthaler",
+                                "Edgar Davids",
+                                "Dennis Wise",
+                            ],
+                            theme: "Player Managers",
+                        },
+                    },
+                    {
+                        connection: {
+                            words: [
+                                "David Beckham",
+                                "Chicharito",
+                                "Marco Reus",
+                                "Landon Donovan",
+                            ],
+                            theme: "LA Galaxy Players",
+                        },
+                    },
+                    {
+                        connection: {
+                            words: [
+                                "Burnley",
+                                "Brentford",
+                                "Borussia Dortmund",
+                                "Rayo Vallecano",
+                            ],
+                            theme: "Bee Mascots",
+                        },
+                    },
+                    {
+                        connection: {
+                            words: [
+                                "Blackburn",
+                                "Raith",
+                                "Bristol",
+                                "Forest Green",
+                            ],
+                            theme: "Roving Teams",
+                        },
+                    },
+                ],
+            };
+
+            // Flatten words and shuffle
+            let words = puzzle.connections.flatMap((c) => c.connection.words);
+            shuffleArray(words);
+
+            // Assign words to cards
+            const $cards = $("#grid .card");
+            $cards.each((i, card) =>
+                $(card).find(".card-title").text(words[i])
+            );
+
+            // SVG for lives
+            const lifeSvg = `
+                <svg width="342px" height="342px" viewBox="0 0 342 342" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <g id="Artboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <circle id="Oval" stroke="#000000" stroke-width="25" cx="171" cy="171" r="158"></circle>
+                        <g id="Mask" transform="translate(13.000000, 13.000000)" fill="#000000" fill-rule="nonzero" stroke="#000000" stroke-width="10">
+                            <path d="M158.295064,105.207025 L120.756151,120.756151 L105.207025,158.295064 L120.756151,195.833976 L158.295064,211.383103 L195.833976,195.833976 L211.383103,158.295064 L195.833976,120.756151 L158.295064,105.207025 Z" id="Polygon" transform="translate(158.295064, 158.295064) rotate(22.250000) translate(-158.295064, -158.295064) "></path>
+                            <path d="M302.850587,207.401146 C308.223503,191.643327 311,175.015435 311,158 C311,141.239533 308.306135,124.854465 303.089508,109.305265 L295.765337,109.337222 L267.159933,138.193351 L267.337222,178.82479 L296.193351,207.430194 L302.850587,207.401146 Z M207.283994,302.890477 L207.252905,295.765337 L178.396776,267.159933 L137.765337,267.337222 L109.159933,296.193351 L109.189854,303.050733 C124.773229,308.292743 141.197941,311 158,311 C174.973154,311 191.560768,308.237291 207.283994,302.890477 Z M207.398567,13.1485336 C191.641508,7.77619255 175.014503,5 158,5 C141.238601,5 124.85265,7.69416503 109.302693,12.9113603 L109.337222,20.8247902 L138.193351,49.430194 L178.82479,49.2529047 L207.430194,20.3967762 L207.398567,13.1485336 Z M13.110397,207.286565 L20.8247902,207.252905 L49.430194,178.396776 L49.2529047,137.765337 L20.396776,109.159933 L12.9483997,109.192432 C7.70695746,124.775046 5,141.198872 5,158 C5,174.974083 7.76301193,191.562581 13.110397,207.286565 Z" id="Combined-Shape"></path>
+                        </g>
+                    </g>
+                </svg>
+            `;
+            let currLives = 4;
+            let goalsScored = 0; // number of groups solved
+            let goalsConceded = 0; // number of lives lost
+
+            function setLives() {
+                const $lives = $("#lives").empty();
+                for (let i = 0; i < currLives; i++) $lives.append(lifeSvg);
+            }
+            setLives();
+
+            // Shuffle helper
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+
+            // Card selection
+            $(document).on("click", ".card:not(.solved-card)", function () {
+                $(this).toggleClass("card-selected border-primary shadow");
+                $("#submit-btn").prop(
+                    "disabled",
+                    $(".card-selected").length !== 4
+                );
+            });
+
+            // Shuffle button — only unsolved cards
+            $("#shuffle-btn").on("click", function () {
+                const $grid = $("#grid");
+                const $solvedCols = $grid.find(".solved-col");
+                const $unsolvedCols = $grid
+                    .find(".col")
+                    .not(".solved-col")
+                    .toArray();
+                shuffleArray($unsolvedCols);
+
+                $grid.empty();
+                $grid.append($solvedCols);
+                $grid.append($unsolvedCols);
+                $grid.packery("reloadItems");
+                $grid.packery();
+            });
+
+            // Submit button
+            $("#submit-btn").on("click", function () {
+                const $grid = $("#grid");
+                const $selected = $(".card-selected");
+                const selectedWords = $selected
+                    .map((i, c) => $(c).find(".card-title").text().trim())
+                    .get();
+
+                let matchedTheme = puzzle.connections.find((conn) =>
+                    selectedWords.every((w) =>
+                        conn.connection.words.includes(w)
+                    )
+                )?.connection.theme;
+
+                if (matchedTheme) {
+                    // Mark solved cards
+                    $selected.each(function () {
+                        const $card = $(this);
+                        $card
+                            .addClass("solved-card")
+                            .removeClass("card-selected border-primary shadow");
+                        const $parent = $card.parent(".col");
+                        const $lastSolvedCol = $(".solved-col").last();
+                        if ($lastSolvedCol.length > 0) {
+                            $parent.insertAfter($lastSolvedCol);
+                        } else {
+                            $grid.prepend($parent);
+                        }
+                        $parent.addClass("solved-col");
+                    });
+                    $grid.packery("reloadItems");
+                    $grid.packery();
+
+                    $("#theme-area").append(
+                        `<span class="badge">${matchedTheme}</span>`
+                    );
+
+                    goalsScored++;
+
+                    // Check for game completion
+                    if ($(".solved-card").length === 16) {
+                        $("#submit-btn, #shuffle-btn").prop("disabled", true);
+                        showModal(
+                            "Grid Complete",
+                            `You won ${goalsScored}-${goalsConceded}! ⚽️ Come back tomorrow.`
+                        );
+                    } else {
+                        $("#submit-btn").prop("disabled", true);
+                    }
+                } else {
+                    $(".card-selected").addClass("shake");
+                    setTimeout(() => {
+                        $(".card-selected").removeClass("shake");
+                    }, 300);
+
+                    currLives--;
+                    setLives();
+                    goalsConceded++;
+                    if (currLives === 0) {
+                        showModal(
+                            "Game Over",
+                            `You lost ${goalsConceded}-${goalsScored}. ⚽️ Better luck next time.`
+                        );
+                        completePuzzle();
+                        $("#submit-btn, #shuffle-btn").prop("disabled", true);
+                        $(".card-selected").removeClass(
+                            "card-selected border-primary shadow"
+                        );
+                    }
+                }
+            });
+
+            // Complete puzzle automatically
+            function completePuzzle() {
+                const $grid = $("#grid");
+                const wordToTheme = {};
+                puzzle.connections.forEach((conn) =>
+                    conn.connection.words.forEach(
+                        (w) => (wordToTheme[w] = conn.connection.theme)
+                    )
+                );
+
+                $("#grid .card")
+                    .not(".solved-card")
+                    .each(function () {
+                        const $card = $(this);
+                        const word = $card.find(".card-title").text().trim();
+                        const theme = wordToTheme[word];
+                        const connWords = puzzle.connections.find(
+                            (c) => c.connection.theme === theme
+                        ).connection.words;
+
+                        connWords.forEach((w) => {
+                            const $c = $("#grid .card").filter(
+                                (i, el) =>
+                                    $(el).find(".card-title").text().trim() ===
+                                    w
+                            );
+                            $c.addClass("solved-card");
+                            const $parent = $c.parent(".col");
+                            $parent.addClass("solved-col");
+                            const $lastSolvedCol = $(".solved-col").last();
+                            if ($lastSolvedCol.length > 0) {
+                                $parent.insertAfter($lastSolvedCol);
+                            } else {
+                                $grid.prepend($parent);
+                            }
+                            $parent.addClass("solved-col");
+                        });
+
+                        if (
+                            !$("#theme-area span:contains('" + theme + "')")
+                                .length
+                        ) {
+                            $("#theme-area").append(
+                                `<span class="badge">${theme}</span>`
+                            );
+                        }
+                    });
+
+                $grid.packery("reloadItems");
+                $grid.packery();
+            }
+
+            // Show modal
+            function showModal(title, body) {
+                const shareMessage = generateShareMessage();
+                const encodedMessage = encodeURIComponent(shareMessage);
+
+                const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedMessage}`;
+                const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=&quote=${encodedMessage}`;
+
+                if ($("#modal").length === 0) {
+                    $("body").append(`
+                    <div id="modal" class="modal" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header"><h5 class="modal-title">${title}</h5></div>
+                                <div class="modal-body"><p>${body}</p></div>
+                                <div class="modal-footer">
+                                    <a href="${twitterUrl}" target="_blank" class="btn btn-secondary">Share Twitter</a>
+                                    <a href="${facebookUrl}" target="_blank" class="btn btn-secondary">Share Facebook</a>
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `);
+                }
+                new bootstrap.Modal($("#modal")[0]).show();
+            }
+
+            function generateShareMessage() {
+                if (goalsScored === 4) {
+                    return `I beat today's Link-Up Play ${goalsScored}-${goalsConceded}! ⚽️ Can you do better?`;
+                } else if (goalsConceded === 4) {
+                    return `I lost today's Link-Up Play ${goalsConceded}-${goalsScored}. ⚽️ Can you do better?`;
+                } else {
+                    return `Score: ${goalsScored}-${goalsConceded}`;
+                }
+            }
+        </script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>
